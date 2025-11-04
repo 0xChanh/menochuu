@@ -1,4 +1,4 @@
--- 001
+-- 003
 
 do
     ply = game.Players
@@ -1922,7 +1922,7 @@ local SaveManager = loadstring(game:HttpGet(
 local InterfaceManager = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 local Window = Fluent:CreateWindow({
-    Title = "RUBY HUB",
+    Title = "Lumy Hub",
     SubTitle = "",
     TabWidth = 155,
     Size = UDim2.fromOffset(555, 320),
