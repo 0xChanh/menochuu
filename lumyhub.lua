@@ -1946,6 +1946,18 @@ local MissTab = Window:Tab("Miss", "rbxassetid://10734898355")
 
 local SettingTab = Window:Tab("Setting", "rbxassetid://10734898355")
 
+
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local UIBUTTON = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+
+
+
+
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
         return true
