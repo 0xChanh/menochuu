@@ -1,4 +1,4 @@
--- 005
+-- 003
 
 do
     ply = game.Players
@@ -1922,7 +1922,7 @@ local SaveManager = loadstring(game:HttpGet(
 local InterfaceManager = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 local Window = Fluent:CreateWindow({
-    Title = "Lumy Hub",
+    Title = "RUBY HUB",
     SubTitle = "",
     TabWidth = 155,
     Size = UDim2.fromOffset(555, 320),
@@ -1930,7 +1930,6 @@ local Window = Fluent:CreateWindow({
     Theme = "Rose",
     MinimizeKey = Enum.KeyCode.End
 })
-
 local Tabs = {
     Main = Window:AddTab({
         Title = "Farm",
@@ -1989,74 +1988,74 @@ local Tabs = {
         Icon = ""
     })
 }
-
---[[ UI BUTTON FIXED VERSION ]]--
-
 if game.CoreGui:FindFirstChild('UIBUTTON') then
-    game.CoreGui.UIBUTTON:Destroy()
+    game.CoreGui:FindFirstChild('UIBUTTON'):Destroy()
 end
-
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
-
 local UIBUTTON = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 local UICorner_2 = Instance.new("UICorner")
-local Notify = Instance.new("TextLabel")
 
 UIBUTTON.Name = "UIBUTTON"
 UIBUTTON.Parent = game.CoreGui
 UIBUTTON.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
 Frame.Parent = UIBUTTON
-Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-Frame.BackgroundTransparency = 0.2
-Frame.Position = UDim2.new(0.02, 0, 0.25, 0)
-Frame.Size = UDim2.new(0, 80, 0, 80)
+Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Transparency = 1
+Frame.Position = UDim2.new(0.157012194, 0, 0.164366379, 0)
+Frame.Size = UDim2.new(0, 115, 0, 49)
 
 ImageButton.Parent = Frame
 ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButton.Position = UDim2.new(0, 8, 0, 8)
-ImageButton.Size = UDim2.new(1, -16, 1, -16)
-ImageButton.Image = "rbxassetid://3926305904"
-ImageButton.ScaleType = Enum.ScaleType.Fit
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.218742043, 0, -0.155235752, 0)
+ImageButton.Size = UDim2.new(0, 64, 0, 64)
+ImageButton.Image = "rbxassetid://115929315222312"
+ImageButton.Draggable = true
+ImageButton.MouseButton1Click:Connect(function()
+    -- Try to reliably toggle the hub UI instead of sending a synthetic key event.
+    local function toggleHubIn(parent)
+        for _, gui in pairs(parent:GetChildren()) do
+            if gui:IsA("ScreenGui") then
+                -- Look for a label that contains the window title used when creating the Fluent window.
+                local found = false
+                for _, d in pairs(gui:GetDescendants()) do
+                    if d:IsA("TextLabel") and d.Text and string.find(string.lower(d.Text), "ruby hub") then
+                        found = true
+                        break
+                    end
+                end
+                if found then
+                    -- ScreenGui uses 'Enabled' to show/hide in many cases; toggle it if present.
+                    if gui.Enabled ~= nil then
+                        gui.Enabled = not gui.Enabled
+                    else
+                        -- Fallback: toggle Visible on top-level frames if Enabled isn't present.
+                        for _, c in pairs(gui:GetChildren()) do
+                            if c:IsA("Frame") and c.Visible ~= nil then
+                                c.Visible = not c.Visible
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
 
-UICorner.CornerRadius = UDim.new(1, 0)
+    -- Toggle in CoreGui and PlayerGui (some UIs are parented differently depending on the executor/library)
+    pcall(function() toggleHubIn(game.CoreGui) end)
+    pcall(function() toggleHubIn(plr:WaitForChild("PlayerGui")) end)
+end)
+UICorner.CornerRadius = UDim.new(0, 100)
 UICorner.Parent = ImageButton
-UICorner_2.CornerRadius = UDim.new(0, 15)
-UICorner_2.Parent = Frame
-
--- notify
-Notify.Parent = Frame
-Notify.BackgroundTransparency = 1
-Notify.Size = UDim2.new(1, 0, 0.3, 0)
-Notify.Position = UDim2.new(0, 0, 1, 0)
-Notify.Text = ""
-Notify.TextColor3 = Color3.fromRGB(255, 255, 255)
-Notify.TextScaled = true
-Notify.TextTransparency = 1
-
-local menuVisible = true
-local function toggleMenu()
-    menuVisible = not menuVisible
-    local text = menuVisible and "Menu On" or "Menu Off"
-    Notify.Text = text
-    TweenService:Create(Notify, TweenInfo.new(0.25), {TextTransparency = 0}):Play()
-    task.delay(1, function()
-        TweenService:Create(Notify, TweenInfo.new(0.5), {TextTransparency = 1}):Play()
-    end)
-
-    -- Thay thế bằng toggle thật của mày ở đây
-    -- Ví dụ: game.CoreGui["Tên GUI chính"].Enabled = menuVisible
-end
-
-ImageButton.MouseButton1Click:Connect(toggleMenu)
-
-
-
-
+UICorner_2.CornerRadius = UDim.new(0, 10)
+UICorner_2.Parent = Framec
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
         return true
