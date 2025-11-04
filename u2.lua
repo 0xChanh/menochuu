@@ -1944,7 +1944,7 @@ local ShopTab = Window:Tab("Shop", "rbxassetid://10734898355")
 local MissTab = Window:Tab("Miss", "rbxassetid://10734898355")
 
 
-local SettingTab = Window:Tab("Setting")
+local SettingTab = Window:Tab("Setting", "rbxassetid://10734898355")
 
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
