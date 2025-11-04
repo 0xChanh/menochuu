@@ -1929,20 +1929,19 @@ local Window = Update:Window({
     TabWidth = 140 
 })
 
-local MainTab = Window:Tab("Main")
-
-local QuestsTab = Window:Tab("Item")
-local MeleeTab = Window:Tab("Mele")
-local SeaEventTab = Window:Tab("Sea Event")
-local MirageTab = Window:Tab("Race V4")
-local DracoTab = Window:Tab("Draco")
-local PrehistoricTab = Window:Tab("Prehistoric")
-local RaidTab = Window:Tab("Raid")
-local CombatTab = Window:Tab("PVP")
-local TravelTab = Window:Tab("Travel")
-local FruitTab = Window:Tab("Fruit")
-local ShopTab = Window:Tab("Shop")
-local MissTab = Window:Tab("Miss")
+local MainTab = Window:Tab("Main", "rbxassetid://10734898355")
+local QuestsTab = Window:Tab("Item", "rbxassetid://10734898355")
+local MeleeTab = Window:Tab("Mele", "rbxassetid://10734898355")
+local SeaEventTab = Window:Tab("Sea Event", "rbxassetid://10734898355")
+local MirageTab = Window:Tab("Race V4", "rbxassetid://10734898355")
+local DracoTab = Window:Tab("Draco", "rbxassetid://10734898355")
+local PrehistoricTab = Window:Tab("Prehistoric", "rbxassetid://10734898355")
+local RaidTab = Window:Tab("Raid", "rbxassetid://10734898355")
+local CombatTab = Window:Tab("PVP", "rbxassetid://10734898355")
+local TravelTab = Window:Tab("Travel", "rbxassetid://10734898355")
+local FruitTab = Window:Tab("Fruit", "rbxassetid://10734898355")
+local ShopTab = Window:Tab("Shop", "rbxassetid://10734898355")
+local MissTab = Window:Tab("Miss", "rbxassetid://10734898355")
 
 
 local SettingTab = Window:Tab("Setting")
