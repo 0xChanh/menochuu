@@ -1,5 +1,3 @@
---009
-
 do
     ply = game.Players
     plr = ply.LocalPlayer
@@ -1988,19 +1986,6 @@ local Tabs = {
         Icon = ""
     })
 }
-
-
--- local Update = (loadstring(game:HttpGet("https://raw.githubusercontent.com/0xChanh/ohhtest/refs/heads/main/lumyui.lua")))();
-
-
--- local Window = Update:Window({
---     SubTitle = "Blox Fruits",
---     Size = UDim2.new(0, 450, 0, 300), 
---     TabWidth = 140 
--- })
-
--- local MainTab = Window:Tab("Main", "rbxassetid://10734898355")
-
 if game.CoreGui:FindFirstChild('UIBUTTON') then
     game.CoreGui:FindFirstChild('UIBUTTON'):Destroy()
 end
@@ -2037,7 +2022,7 @@ end)
 UICorner.CornerRadius = UDim.new(0, 100)
 UICorner.Parent = ImageButton
 UICorner_2.CornerRadius = UDim.new(0, 10)
-UICorner_2.Parent = Framec
+UICorner_2.Parent = Frame
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
         return true
@@ -2070,12 +2055,14 @@ else
     })
 end
 
--- MainTab:Toggle("Auto Farm Level", false, "", function(state)
---     _G.Level = state
--- end)
-
-_G.Level = true;
-
+local FarmLevel = Tabs.Main:AddToggle("FarmLevel", {
+    Title = "Auto Farm Level",
+    Description = "",
+    Default = false
+})
+FarmLevel:OnChanged(function(Value)
+    _G.Level = Value
+end)
 spawn(function()
     while wait(Sec) do
         if _G.Level then
