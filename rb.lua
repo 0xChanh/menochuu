@@ -1990,83 +1990,72 @@ local Tabs = {
     })
 }
 
--- if game.CoreGui:FindFirstChild('UIBUTTON') then
---     game.CoreGui.UIBUTTON:Destroy()
--- end
+--[[ UI BUTTON FIXED VERSION ]]--
 
--- local TweenService = game:GetService("TweenService")
--- local UserInputService = game:GetService("UserInputService")
+if game.CoreGui:FindFirstChild('UIBUTTON') then
+    game.CoreGui.UIBUTTON:Destroy()
+end
 
--- local UIBUTTON = Instance.new("ScreenGui")
--- local Frame = Instance.new("Frame")
--- local ImageButton = Instance.new("ImageButton")
--- local UICorner = Instance.new("UICorner")
--- local UICorner_2 = Instance.new("UICorner")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 
--- UIBUTTON.Name = "UIBUTTON"
--- UIBUTTON.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
--- UIBUTTON.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
--- Frame.Parent = UIBUTTON
--- Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
--- Frame.BorderSizePixel = 0
--- Frame.BackgroundTransparency = 0 -- để còn thấy UI
--- Frame.Position = UDim2.new(0.157, 0, 0.164, 0)
--- Frame.Size = UDim2.new(0, 115, 0, 49)
-
--- ImageButton.Parent = Frame
--- ImageButton.BackgroundTransparency = 1
--- ImageButton.Position = UDim2.new(0.218, 0, -0.155, 0)
--- ImageButton.Size = UDim2.new(0, 64, 0, 64)
--- ImageButton.Image = "rbxassetid://6031094670"
--- ImageButton.Draggable = true
-
--- ImageButton.MouseButton1Click:Connect(function()
---     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
--- end)
-
--- UICorner.CornerRadius = UDim.new(0, 100)
--- UICorner.Parent = ImageButton
-
--- UICorner_2.CornerRadius = UDim.new(0, 10)
--- UICorner_2.Parent = Frame
-
-local ToggleGui = Instance.new("ScreenGui")
-local Toggle = Instance.new("TextButton")
+local UIBUTTON = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local Notify = Instance.new("TextLabel")
 
-local IsOpen = true
+UIBUTTON.Name = "UIBUTTON"
+UIBUTTON.Parent = game.CoreGui
+UIBUTTON.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
---Properties
-ToggleGui.Name = "Toggle Gui"
-ToggleGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ToggleGui.ResetOnSpawn = false
+Frame.Parent = UIBUTTON
+Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame.BackgroundTransparency = 0.2
+Frame.Position = UDim2.new(0.02, 0, 0.25, 0)
+Frame.Size = UDim2.new(0, 80, 0, 80)
 
-UICorner.Parent = Toggle
-Toggle.Name = "Toggle"
-Toggle.Parent = ToggleGui
-Toggle.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-Toggle.Position = UDim2.new(0, 0, 0.454706937, 0)--position of the toggle
-Toggle.Size = UDim2.new(0, 80, 0, 38)--size of the toggle
-Toggle.Font = Enum.Font.SourceSans
-Toggle.Text = "Close Gui"
-Toggle.TextColor3 = Color3.fromRGB(203, 122, 49)
-Toggle.TextSize = 19.000
-Toggle.Draggable = true
-Toggle.MouseButton1Click:connect(function()
-  getgenv().keytoclick = "E"
-local vim = game:service("VirtualInputManager")
-vim:SendKeyEvent(true, keytoclick, false, game)
+ImageButton.Parent = Frame
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.Position = UDim2.new(0, 8, 0, 8)
+ImageButton.Size = UDim2.new(1, -16, 1, -16)
+ImageButton.Image = "rbxassetid://3926305904"
+ImageButton.ScaleType = Enum.ScaleType.Fit
 
-isOpen = not isOpen  -- Toggle state
-    if isOpen then
-        Toggle.Text = "Open Gui"
-    else
-        Toggle.Text = "Close Gui"
-    end
+UICorner.CornerRadius = UDim.new(1, 0)
+UICorner.Parent = ImageButton
+UICorner_2.CornerRadius = UDim.new(0, 15)
+UICorner_2.Parent = Frame
 
-end)
+-- notify
+Notify.Parent = Frame
+Notify.BackgroundTransparency = 1
+Notify.Size = UDim2.new(1, 0, 0.3, 0)
+Notify.Position = UDim2.new(0, 0, 1, 0)
+Notify.Text = ""
+Notify.TextColor3 = Color3.fromRGB(255, 255, 255)
+Notify.TextScaled = true
+Notify.TextTransparency = 1
+
+local menuVisible = true
+local function toggleMenu()
+    menuVisible = not menuVisible
+    local text = menuVisible and "Menu On" or "Menu Off"
+    Notify.Text = text
+    TweenService:Create(Notify, TweenInfo.new(0.25), {TextTransparency = 0}):Play()
+    task.delay(1, function()
+        TweenService:Create(Notify, TweenInfo.new(0.5), {TextTransparency = 1}):Play()
+    end)
+
+    -- Thay thế bằng toggle thật của mày ở đây
+    -- Ví dụ: game.CoreGui["Tên GUI chính"].Enabled = menuVisible
+end
+
+ImageButton.MouseButton1Click:Connect(toggleMenu)
+
+
+
 
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
