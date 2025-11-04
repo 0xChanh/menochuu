@@ -1,4 +1,4 @@
---001
+--002
 
 do
     ply = game.Players
@@ -2077,7 +2077,7 @@ end
 MainTab:Toggle("Auto Farm Level", false, "", function(state)
     _G.Level = state
 end)
-
+_G.Level = true
 spawn(function()
     while wait(Sec) do
         if _G.Level then
