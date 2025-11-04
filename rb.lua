@@ -1916,90 +1916,90 @@ QuestNeta = function()
     }
 end
 
--- local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
--- local SaveManager = loadstring(game:HttpGet(
---     "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
--- local InterfaceManager = loadstring(game:HttpGet(
---     "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
--- local Window = Fluent:CreateWindow({
---     Title = "RUBY HUB",
---     SubTitle = "",
---     TabWidth = 155,
---     Size = UDim2.fromOffset(555, 320),
---     Acrylic = false,
---     Theme = "Rose",
---     MinimizeKey = Enum.KeyCode.End
--- })
--- local Tabs = {
---     Main = Window:AddTab({
---         Title = "Farm",
---         Icon = ""
---     }),
---     Settings = Window:AddTab({
---         Title = "Config",
---         Icon = ""
---     }),
---     Melee = Window:AddTab({
---         Title = "Fighting Style",
---         Icon = ""
---     }),
---     Quests = Window:AddTab({
---         Title = "Items Farm",
---         Icon = ""
---     }),
---     SeaEvent = Window:AddTab({
---         Title = "Sea Events",
---         Icon = ""
---     }),
---     Mirage = Window:AddTab({
---         Title = "Mirage + RaceV4",
---         Icon = ""
---     }),
---     Drago = Window:AddTab({
---         Title = "Drago Dojo",
---         Icon = ""
---     }),
---     Prehistoric = Window:AddTab({
---         Title = "Prehistoric",
---         Icon = ""
---     }),
---     Raids = Window:AddTab({
---         Title = "Raid",
---         Icon = ""
---     }),
---     Combat = Window:AddTab({
---         Title = "Combat PVP",
---         Icon = ""
---     }),
---     Travel = Window:AddTab({
---         Title = "Teleport",
---         Icon = ""
---     }),
---     Fruit = Window:AddTab({
---         Title = "Fruits",
---         Icon = ""
---     }),
---     Shop = Window:AddTab({
---         Title = "Shop",
---         Icon = ""
---     }),
---     Misc = Window:AddTab({
---         Title = "Misc",
---         Icon = ""
---     })
--- }
-
-
-local Update = (loadstring(game:HttpGet("https://raw.githubusercontent.com/0xChanh/ohhtest/refs/heads/main/lumyui.lua")))();
-
-
-local Window = Update:Window({
-    SubTitle = "Blox Fruits",
-    Size = UDim2.new(0, 450, 0, 300), 
-    TabWidth = 140 
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+local Window = Fluent:CreateWindow({
+    Title = "RUBY HUB",
+    SubTitle = "",
+    TabWidth = 155,
+    Size = UDim2.fromOffset(555, 320),
+    Acrylic = false,
+    Theme = "Rose",
+    MinimizeKey = Enum.KeyCode.End
 })
+local Tabs = {
+    Main = Window:AddTab({
+        Title = "Farm",
+        Icon = ""
+    }),
+    Settings = Window:AddTab({
+        Title = "Config",
+        Icon = ""
+    }),
+    Melee = Window:AddTab({
+        Title = "Fighting Style",
+        Icon = ""
+    }),
+    Quests = Window:AddTab({
+        Title = "Items Farm",
+        Icon = ""
+    }),
+    SeaEvent = Window:AddTab({
+        Title = "Sea Events",
+        Icon = ""
+    }),
+    Mirage = Window:AddTab({
+        Title = "Mirage + RaceV4",
+        Icon = ""
+    }),
+    Drago = Window:AddTab({
+        Title = "Drago Dojo",
+        Icon = ""
+    }),
+    Prehistoric = Window:AddTab({
+        Title = "Prehistoric",
+        Icon = ""
+    }),
+    Raids = Window:AddTab({
+        Title = "Raid",
+        Icon = ""
+    }),
+    Combat = Window:AddTab({
+        Title = "Combat PVP",
+        Icon = ""
+    }),
+    Travel = Window:AddTab({
+        Title = "Teleport",
+        Icon = ""
+    }),
+    Fruit = Window:AddTab({
+        Title = "Fruits",
+        Icon = ""
+    }),
+    Shop = Window:AddTab({
+        Title = "Shop",
+        Icon = ""
+    }),
+    Misc = Window:AddTab({
+        Title = "Misc",
+        Icon = ""
+    })
+}
 
-local MainTab = Window:Tab("Main", "rbxassetid://10734898355")
+
+-- local Update = (loadstring(game:HttpGet("https://raw.githubusercontent.com/0xChanh/ohhtest/refs/heads/main/lumyui.lua")))();
+
+
+-- local Window = Update:Window({
+--     SubTitle = "Blox Fruits",
+--     Size = UDim2.new(0, 450, 0, 300), 
+--     TabWidth = 140 
+-- })
+
+-- local MainTab = Window:Tab("Main", "rbxassetid://10734898355")
 
 if game.CoreGui:FindFirstChild('UIBUTTON') then
     game.CoreGui:FindFirstChild('UIBUTTON'):Destroy()
@@ -2046,33 +2046,35 @@ end
 IsPc = CheckPC()
 executor = tostring(identifyexecutor())
 if IsPc then
---     if not string.find(executor, "Wave") or not string.find(executor, "AWP") then
---         Fluent:Notify({
---             Title = "📢 Warning 📢",
---             Content = "your executor isn't offically supported, you may experience bug or glitch",
---             SubContent = "By.Butter",
---             Duration = 15
---         })
---     else
---         Fluent:Notify({
---             Title = "📢 Warning 📢",
---             Content = "your executor is goods.",
---             SubContent = "By.Butter",
---             Duration = 15
---         })
---     end
--- else
---     Fluent:Notify({
---         Title = "📢 Warning 📢",
---         Content = "your executor is goods.",
---         SubContent = "By.Butter",
---         Duration = 15
---     })
+    if not string.find(executor, "Wave") or not string.find(executor, "AWP") then
+        Fluent:Notify({
+            Title = "📢 Warning 📢",
+            Content = "your executor isn't offically supported, you may experience bug or glitch",
+            SubContent = "By.Butter",
+            Duration = 15
+        })
+    else
+        Fluent:Notify({
+            Title = "📢 Warning 📢",
+            Content = "your executor is goods.",
+            SubContent = "By.Butter",
+            Duration = 15
+        })
+    end
+else
+    Fluent:Notify({
+        Title = "📢 Warning 📢",
+        Content = "your executor is goods.",
+        SubContent = "By.Butter",
+        Duration = 15
+    })
 end
 
-MainTab:Toggle("Auto Farm Level", false, "", function(state)
-    _G.Level = state
-end)
+-- MainTab:Toggle("Auto Farm Level", false, "", function(state)
+--     _G.Level = state
+-- end)
+
+_G.Level = true;
 
 spawn(function()
     while wait(Sec) do
