@@ -1,4 +1,4 @@
--- 003
+-- 004
 
 do
     ply = game.Players
@@ -1955,7 +1955,7 @@ IsPc = CheckPC()
 executor = tostring(identifyexecutor())
 
 
-MainTab:Seperator("Main Farm");
+-- MainTab:Seperator("Main Farm");
 
 
 MainTab:Toggle("Auto Farm Level", false, "", function(state)
@@ -2193,7 +2193,7 @@ spawn(function()
     end
 end)
 
-MainTab:Seperator("Other Farm");
+-- MainTab:Seperator("Other Farm");
 
 MainTab:Toggle("Auto Farm Nearest", false, "", function(Value)
     _G.AutoFarmNear = Value
@@ -2612,7 +2612,7 @@ spawn(function()
         end
     end
 end)
-MainTab:Seperator("Mastery Farm");
+-- MainTab:Seperator("Mastery Farm");
 
 local posMastery = {"Cake", "Bone"}
 
@@ -2845,7 +2845,7 @@ spawn(function()
     end
 end)
 
-MainTab:Seperator("Quest Farm");
+-- MainTab:Seperator("Quest Farm");
 
 
 Client = MainTab:Label("Client");
@@ -3107,7 +3107,7 @@ spawn(function()
     end
 end)
 
-MainTab:Seperator("Dough Dungeon");
+-- MainTab:Seperator("Dough Dungeon");
 
 
 MainTab:Toggle("Auto Unlock Dough dungeon", false, "", function(Value)
@@ -3214,7 +3214,7 @@ spawn(function()
     end
 end)
 
-MainTab:Seperator("Haki color");
+-- MainTab:Seperator("Haki color");
 
 MainTab:Toggle("Auto Teleport Barista Cousin", false, "", function(Value)
     _G.Tp_MasterA = Value
@@ -3353,7 +3353,7 @@ end)
 
 
 
-MainTab:Seperator("Ken Farm");
+-- MainTab:Seperator("Ken Farm");
 
 
 
@@ -3547,7 +3547,7 @@ spawn(function()
         end
     end
 end)
-MainTab:Seperator("Race V3");
+-- MainTab:Seperator("Race V3");
 
 MainTab:Toggle("Auto Mink V3", false, "", function(Value)
     _G.Auto_Mink = Value
