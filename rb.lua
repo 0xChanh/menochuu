@@ -1990,48 +1990,83 @@ local Tabs = {
     })
 }
 
-if game.CoreGui:FindFirstChild('UIBUTTON') then
-    game.CoreGui.UIBUTTON:Destroy()
-end
+-- if game.CoreGui:FindFirstChild('UIBUTTON') then
+--     game.CoreGui.UIBUTTON:Destroy()
+-- end
 
-local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
+-- local TweenService = game:GetService("TweenService")
+-- local UserInputService = game:GetService("UserInputService")
 
-local UIBUTTON = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local ImageButton = Instance.new("ImageButton")
+-- local UIBUTTON = Instance.new("ScreenGui")
+-- local Frame = Instance.new("Frame")
+-- local ImageButton = Instance.new("ImageButton")
+-- local UICorner = Instance.new("UICorner")
+-- local UICorner_2 = Instance.new("UICorner")
+
+-- UIBUTTON.Name = "UIBUTTON"
+-- UIBUTTON.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+-- UIBUTTON.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Frame.Parent = UIBUTTON
+-- Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+-- Frame.BorderSizePixel = 0
+-- Frame.BackgroundTransparency = 0 -- để còn thấy UI
+-- Frame.Position = UDim2.new(0.157, 0, 0.164, 0)
+-- Frame.Size = UDim2.new(0, 115, 0, 49)
+
+-- ImageButton.Parent = Frame
+-- ImageButton.BackgroundTransparency = 1
+-- ImageButton.Position = UDim2.new(0.218, 0, -0.155, 0)
+-- ImageButton.Size = UDim2.new(0, 64, 0, 64)
+-- ImageButton.Image = "rbxassetid://6031094670"
+-- ImageButton.Draggable = true
+
+-- ImageButton.MouseButton1Click:Connect(function()
+--     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+-- end)
+
+-- UICorner.CornerRadius = UDim.new(0, 100)
+-- UICorner.Parent = ImageButton
+
+-- UICorner_2.CornerRadius = UDim.new(0, 10)
+-- UICorner_2.Parent = Frame
+
+local ToggleGui = Instance.new("ScreenGui")
+local Toggle = Instance.new("TextButton")
 local UICorner = Instance.new("UICorner")
-local UICorner_2 = Instance.new("UICorner")
 
-UIBUTTON.Name = "UIBUTTON"
-UIBUTTON.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-UIBUTTON.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+local IsOpen = true
 
-Frame.Parent = UIBUTTON
-Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Frame.BorderSizePixel = 0
-Frame.BackgroundTransparency = 0 -- để còn thấy UI
-Frame.Position = UDim2.new(0.157, 0, 0.164, 0)
-Frame.Size = UDim2.new(0, 115, 0, 49)
+--Properties
+ToggleGui.Name = "Toggle Gui"
+ToggleGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ToggleGui.ResetOnSpawn = false
 
-ImageButton.Parent = Frame
-ImageButton.BackgroundTransparency = 1
-ImageButton.Position = UDim2.new(0.218, 0, -0.155, 0)
-ImageButton.Size = UDim2.new(0, 64, 0, 64)
-ImageButton.Image = "rbxassetid://6031094670"
-ImageButton.Draggable = true
+UICorner.Parent = Toggle
+Toggle.Name = "Toggle"
+Toggle.Parent = ToggleGui
+Toggle.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+Toggle.Position = UDim2.new(0, 0, 0.454706937, 0)--position of the toggle
+Toggle.Size = UDim2.new(0, 80, 0, 38)--size of the toggle
+Toggle.Font = Enum.Font.SourceSans
+Toggle.Text = "Close Gui"
+Toggle.TextColor3 = Color3.fromRGB(203, 122, 49)
+Toggle.TextSize = 19.000
+Toggle.Draggable = true
+Toggle.MouseButton1Click:connect(function()
+  getgenv().keytoclick = "E"
+local vim = game:service("VirtualInputManager")
+vim:SendKeyEvent(true, keytoclick, false, game)
 
-ImageButton.MouseButton1Click:Connect(function()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+isOpen = not isOpen  -- Toggle state
+    if isOpen then
+        Toggle.Text = "Open Gui"
+    else
+        Toggle.Text = "Close Gui"
+    end
+
 end)
-
-UICorner.CornerRadius = UDim.new(0, 100)
-UICorner.Parent = ImageButton
-
-UICorner_2.CornerRadius = UDim.new(0, 10)
-UICorner_2.Parent = Frame
-
-
 
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
