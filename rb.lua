@@ -2004,7 +2004,7 @@ Frame.Parent = UIBUTTON
 Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Frame.BorderSizePixel = 0
-Frame.Transparency = 1
+Frame.BackgroundTransparency = 1
 Frame.Position = UDim2.new(0.157012194, 0, 0.164366379, 0)
 Frame.Size = UDim2.new(0, 115, 0, 49)
 
