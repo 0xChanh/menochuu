@@ -1930,6 +1930,7 @@ local Window = Fluent:CreateWindow({
     Theme = "Rose",
     MinimizeKey = Enum.KeyCode.End
 })
+
 local Tabs = {
     Main = Window:AddTab({
         Title = "Farm",
