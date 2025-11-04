@@ -1986,11 +1986,14 @@ local Tabs = {
         Icon = ""
     })
 }
+
 if game.CoreGui:FindFirstChild('UIBUTTON') then
-    game.CoreGui:FindFirstChild('UIBUTTON'):Destroy()
+    game.CoreGui.UIBUTTON:Destroy()
 end
+
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
+
 local UIBUTTON = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local ImageButton = Instance.new("ImageButton")
@@ -1998,31 +2001,35 @@ local UICorner = Instance.new("UICorner")
 local UICorner_2 = Instance.new("UICorner")
 
 UIBUTTON.Name = "UIBUTTON"
-UIBUTTON.Parent = game.CoreGui
+UIBUTTON.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 UIBUTTON.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
 Frame.Parent = UIBUTTON
 Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Frame.BorderSizePixel = 0
-Frame.BackgroundTransparency = 1
-Frame.Position = UDim2.new(0.157012194, 0, 0.164366379, 0)
+Frame.BackgroundTransparency = 0 -- để còn thấy UI
+Frame.Position = UDim2.new(0.157, 0, 0.164, 0)
 Frame.Size = UDim2.new(0, 115, 0, 49)
 
 ImageButton.Parent = Frame
-ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
-ImageButton.Position = UDim2.new(0.218742043, 0, -0.155235752, 0)
+ImageButton.BackgroundTransparency = 1
+ImageButton.Position = UDim2.new(0.218, 0, -0.155, 0)
 ImageButton.Size = UDim2.new(0, 64, 0, 64)
-ImageButton.Image = "rbxassetid://115929315222312"
+ImageButton.Image = "rbxassetid://6031094670"
 ImageButton.Draggable = true
+
 ImageButton.MouseButton1Click:Connect(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
 end)
+
 UICorner.CornerRadius = UDim.new(0, 100)
 UICorner.Parent = ImageButton
+
 UICorner_2.CornerRadius = UDim.new(0, 10)
 UICorner_2.Parent = Frame
+
+
+
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
         return true
