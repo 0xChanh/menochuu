@@ -1992,18 +1992,14 @@ end
 
 local Update = (loadstring(game:HttpGet("https://raw.githubusercontent.com/0xChanh/ohhtest/refs/heads/main/lumyui.lua")))();
 
-pcall(function()
-    Update:StartLoad() -- show loading screen
-    wait(2)
-    Update:Loaded()    -- đóng loading
-end)
+
 local Window = Update:Window({
     SubTitle = "Blox Fruits",
     Size = UDim2.new(0, 450, 0, 300), 
     TabWidth = 140 
 })
 
-
+local MainTab = Window:Tab("Main", "rbxassetid://10734898355")
 
 if game.CoreGui:FindFirstChild('UIBUTTON') then
     game.CoreGui:FindFirstChild('UIBUTTON'):Destroy()
@@ -2077,7 +2073,7 @@ end
 MainTab:Toggle("Auto Farm Level", false, "", function(state)
     _G.Level = state
 end)
-_G.Level = true
+
 spawn(function()
     while wait(Sec) do
         if _G.Level then
