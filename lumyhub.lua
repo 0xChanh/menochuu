@@ -1,4 +1,4 @@
--- 007
+-- 004
 
 do
     ply = game.Players
@@ -1916,36 +1916,78 @@ QuestNeta = function()
     }
 end
 
-local Update = (loadstring(game:HttpGet("https://raw.githubusercontent.com/0xChanh/ohhtest/refs/heads/main/lumyui.lua")))();
-
-pcall(function()
-    Update:StartLoad() -- show loading screen
-    wait(2)
-    Update:Loaded()    -- đóng loading
-end)
-local Window = Update:Window({
-    SubTitle = "Blox Fruits",
-    Size = UDim2.new(0, 450, 0, 300), 
-    TabWidth = 140 
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+local Window = Fluent:CreateWindow({
+    Title = "Lumy",
+    SubTitle = "",
+    TabWidth = 155,
+    Size = UDim2.fromOffset(555, 320),
+    Acrylic = false,
+    Theme = "Rose",
+    MinimizeKey = Enum.KeyCode.End
 })
-
-local MainTab = Window:Tab("Main", "rbxassetid://10734898355")
-local QuestsTab = Window:Tab("Item", "rbxassetid://10734898355")
-local MeleeTab = Window:Tab("Mele", "rbxassetid://10734898355")
-local SeaEventTab = Window:Tab("Sea Event", "rbxassetid://10734898355")
-local MirageTab = Window:Tab("Race V4", "rbxassetid://10734898355")
-local DracoTab = Window:Tab("Draco", "rbxassetid://10734898355")
-local PrehistoricTab = Window:Tab("Prehistoric", "rbxassetid://10734898355")
-local RaidTab = Window:Tab("Raid", "rbxassetid://10734898355")
-local CombatTab = Window:Tab("PVP", "rbxassetid://10734898355")
-local TravelTab = Window:Tab("Travel", "rbxassetid://10734898355")
-local FruitTab = Window:Tab("Fruit", "rbxassetid://10734898355")
-local ShopTab = Window:Tab("Shop", "rbxassetid://10734898355")
-local MissTab = Window:Tab("Miss", "rbxassetid://10734898355")
-
-
-local SettingTab = Window:Tab("Setting", "rbxassetid://10734898355")
-
+local Tabs = {
+    Main = Window:AddTab({
+        Title = "Farm",
+        Icon = ""
+    }),
+    Settings = Window:AddTab({
+        Title = "Config",
+        Icon = ""
+    }),
+    Melee = Window:AddTab({
+        Title = "Fighting Style",
+        Icon = ""
+    }),
+    Quests = Window:AddTab({
+        Title = "Items Farm",
+        Icon = ""
+    }),
+    SeaEvent = Window:AddTab({
+        Title = "Sea Events",
+        Icon = ""
+    }),
+    Mirage = Window:AddTab({
+        Title = "Mirage + RaceV4",
+        Icon = ""
+    }),
+    Drago = Window:AddTab({
+        Title = "Drago Dojo",
+        Icon = ""
+    }),
+    Prehistoric = Window:AddTab({
+        Title = "Prehistoric",
+        Icon = ""
+    }),
+    Raids = Window:AddTab({
+        Title = "Raid",
+        Icon = ""
+    }),
+    Combat = Window:AddTab({
+        Title = "Combat PVP",
+        Icon = ""
+    }),
+    Travel = Window:AddTab({
+        Title = "Teleport",
+        Icon = ""
+    }),
+    Fruit = Window:AddTab({
+        Title = "Fruits",
+        Icon = ""
+    }),
+    Shop = Window:AddTab({
+        Title = "Shop",
+        Icon = ""
+    }),
+    Misc = Window:AddTab({
+        Title = "Misc",
+        Icon = ""
+    })
+}
 if game.CoreGui:FindFirstChild('UIBUTTON') then
     game.CoreGui:FindFirstChild('UIBUTTON'):Destroy()
 end
@@ -1973,20 +2015,47 @@ ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.218742043, 0, -0.155235752, 0)
-ImageButton.Size = UDim2.new(0, 64, 0, 64)
-ImageButton.Image = "rbxassetid://115929315222312"
+ImageButton.Size = UDim2.new(0, 48, 0, 48)
+ImageButton.Image = "rbxassetid://134206895859820"
 ImageButton.Draggable = true
 ImageButton.MouseButton1Click:Connect(function()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game)
+    -- Try to reliably toggle the hub UI instead of sending a synthetic key event.
+    local function toggleHubIn(parent)
+        for _, gui in pairs(parent:GetChildren()) do
+            if gui:IsA("ScreenGui") then
+                -- Look for a label that contains the window title used when creating the Fluent window.
+                local found = false
+                for _, d in pairs(gui:GetDescendants()) do
+                    if d:IsA("TextLabel") and d.Text and string.find(string.lower(d.Text), "lumy hub") then
+                        found = true
+                        break
+                    end
+                end
+                if found then
+                    -- ScreenGui uses 'Enabled' to show/hide in many cases; toggle it if present.
+                    if gui.Enabled ~= nil then
+                        gui.Enabled = not gui.Enabled
+                    else
+                        -- Fallback: toggle Visible on top-level frames if Enabled isn't present.
+                        for _, c in pairs(gui:GetChildren()) do
+                            if c:IsA("Frame") and c.Visible ~= nil then
+                                c.Visible = not c.Visible
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- Toggle in CoreGui and PlayerGui (some UIs are parented differently depending on the executor/library)
+    pcall(function() toggleHubIn(game.CoreGui) end)
+    pcall(function() toggleHubIn(plr:WaitForChild("PlayerGui")) end)
 end)
 UICorner.CornerRadius = UDim.new(0, 100)
 UICorner.Parent = ImageButton
 UICorner_2.CornerRadius = UDim.new(0, 10)
 UICorner_2.Parent = Framec
-
-
-
-
 CheckPC = function()
     if not game:GetService("UserInputService").TouchEnabled then
         return true
@@ -1994,15 +2063,39 @@ CheckPC = function()
 end
 IsPc = CheckPC()
 executor = tostring(identifyexecutor())
+-- if IsPc then
+--     if not string.find(executor, "Wave") or not string.find(executor, "AWP") then
+--         Fluent:Notify({
+--             Title = "📢 Warning 📢",
+--             Content = "your executor isn't offically supported, you may experience bug or glitch",
+--             SubContent = "By.Butter",
+--             Duration = 15
+--         })
+--     else
+--         Fluent:Notify({
+--             Title = "📢 Warning 📢",
+--             Content = "your executor is goods.",
+--             SubContent = "By.Butter",
+--             Duration = 15
+--         })
+--     end
+-- else
+--     Fluent:Notify({
+--         Title = "📢 Warning 📢",
+--         Content = "your executor is goods.",
+--         SubContent = "By.Butter",
+--         Duration = 15
+--     })
+-- end
 
-
--- MainTab:Seperator("Main Farm");
-
-
-MainTab:Toggle("Auto Farm Level", false, "", function(state)
-    _G.Level = state
+local FarmLevel = Tabs.Main:AddToggle("FarmLevel", {
+    Title = "Auto Farm Level",
+    Description = "",
+    Default = false
+})
+FarmLevel:OnChanged(function(Value)
+    _G.Level = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.Level then
@@ -2044,11 +2137,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Sea 2", false, "", function(state)
-    _G.TravelDres = state
+local TravelDress = Tabs.Main:AddToggle("TravelDress", {
+    Title = "Auto Travel Dressrosa",
+    Description = "",
+    Default = false
+})
+TravelDress:OnChanged(function(Value)
+    _G.TravelDres = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -2084,12 +2180,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Sea 3", false, "", function(Value)
+local Zou = Tabs.Main:AddToggle("Zou", {
+    Title = "Auto Zou Quest",
+    Description = "",
+    Default = false
+})
+Zou:OnChanged(function(Value)
     _G.AutoZou = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -2234,13 +2332,16 @@ spawn(function()
     end
 end)
 
--- MainTab:Seperator("Other Farm");
+Tabs.Main:AddSection("Miscellanea / Quest")
 
-MainTab:Toggle("Auto Farm Nearest", false, "", function(Value)
+local ClosetMons = Tabs.Main:AddToggle("ClosetMons", {
+    Title = "Auto Farm Nearest",
+    Description = "",
+    Default = false
+})
+ClosetMons:OnChanged(function(Value)
     _G.AutoFarmNear = Value
 end)
-
-
 spawn(function()
     while wait() do
         pcall(function()
@@ -2259,11 +2360,14 @@ spawn(function()
         end)
     end
 end)
-
-MainTab:Toggle("Auto Factory", false, "", function(Value)
+local FactoryRaids = Tabs.Main:AddToggle("FactoryRaids", {
+    Title = "Auto Factory Raid",
+    Description = "",
+    Default = false
+})
+FactoryRaids:OnChanged(function(Value)
     _G.AutoFactory = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -2282,12 +2386,14 @@ spawn(function()
         end)
     end
 end)
-
-MainTab:Toggle("Auto Pirate Raid", false, "", function(Value)
+local CastleRaids = Tabs.Main:AddToggle("CastleRaids", {
+    Title = "Auto Pirate Raid",
+    Description = "",
+    Default = false
+})
+CastleRaids:OnChanged(function(Value)
     _G.AutoRaidCastle = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoRaidCastle then
@@ -2329,16 +2435,23 @@ spawn(function()
         end
     end
 end)
-
-local fruitDrop = MainTab:Dropdown("Choose Material", MaterialList, nil, function(Value)
+Test = Tabs.Main:AddDropdown("Test", {
+    Title = "Choose Material",
+    Values = MaterialList,
+    Multi = false,
+    Default = nil
+})
+Test:OnChanged(function(Value)
     getgenv().SelectMaterial = Value
 end)
-
-
-MainTab:Toggle("Auto Materials", false, "", function(Value)
+Toggle = Tabs.Main:AddToggle("Toggle", {
+    Title = "Auto Materials",
+    Description = "",
+    Default = false
+})
+Toggle:OnChanged(function(Value)
     getgenv().AutoMaterial = Value
 end)
-
 spawn(function()
     local function processEnemy(v, EnemyName)
         if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
@@ -2378,11 +2491,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Farm Ectoplasm", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Farm Ectoplasm",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoEctoplasm = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -2402,12 +2518,14 @@ spawn(function()
         end)
     end
 end)
-
-MainTab:Toggle("Auto Bartilo Quest", false, "", function(Value)
+local Bartilo = Tabs.Main:AddToggle("Bartilo", {
+    Title = "Auto Done Bartilo Quest",
+    Description = "",
+    Default = false
+})
+Bartilo:OnChanged(function(Value)
     _G.Bartilo_Quest = Value
 end)
-
-
 spawn(function()
     while wait(.1) do
         pcall(function()
@@ -2493,11 +2611,14 @@ spawn(function()
         end)
     end
 end)
-
-MainTab:Toggle("Auto Citizen Quest", false, "", function(Value)
+local CitizenQ = Tabs.Main:AddToggle("CitizenQ", {
+    Title = "Auto Done Citizen Quest",
+    Description = "",
+    Default = false
+})
+CitizenQ:OnChanged(function(Value)
     _G.CitizenQuest = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -2553,12 +2674,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Training Dummy", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Training Dummy",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.DummyMan = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.DummyMan then
@@ -2583,11 +2706,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Berry", false, "", function(Value)
+local Berry = Tabs.Main:AddToggle("Berry", {
+    Title = "Auto Collect Berry",
+    Description = "",
+    Default = false
+})
+Berry:OnChanged(function(Value)
     _G.AutoBerry = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoBerry then
@@ -2616,12 +2742,14 @@ spawn(function()
         end
     end
 end)
-
-
-MainTab:Toggle("Auto Chest", false, "", function(Value)
-    _G.DummyMan = Value
+local Chest = Tabs.Main:AddToggle("Chest", {
+    Title = "Auto Collect Chest",
+    Description = "",
+    Default = false
+})
+Chest:OnChanged(function(Value)
+    _G.AutoFarmChest = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoFarmChest then
@@ -2653,20 +2781,25 @@ spawn(function()
         end
     end
 end)
--- MainTab:Seperator("Mastery Farm");
-
+Tabs.Main:AddSection("Miscellanea / Mastery")
 local posMastery = {"Cake", "Bone"}
-
-MainTab:Dropdown("Choose Farm Mode", posMastery, nil, function(Value)
+local Mastery_Config = Tabs.Main:AddDropdown("Mastery_Config", {
+    Title = "Choose Island",
+    Values = posMastery,
+    Multi = false,
+    Default = 1
+})
+Mastery_Config:OnChanged(function(Value)
     SelectIsland = Value
 end)
-
-
-
-MainTab:Toggle("Auto Mastery Fruits", false, "", function(Value)
+local MasteryFruits = Tabs.Main:AddToggle("MasteryFruits", {
+    Title = "Auto Mastery Fruits",
+    Description = "",
+    Default = false
+})
+MasteryFruits:OnChanged(function(Value)
     _G.FarmMastery_Dev = Value
 end)
-
 spawn(function()
     RunSer.RenderStepped:Connect(function()
         pcall(function()
@@ -2715,12 +2848,14 @@ spawn(function()
         end
     end
 end)
-
-
-MainTab:Toggle("Auto Mastery Gun", false, "", function(Value)
+local MasteryGun = Tabs.Main:AddToggle("MasteryGun", {
+    Title = "Auto Mastery Gun",
+    Description = "",
+    Default = false
+})
+MasteryGun:OnChanged(function(Value)
     _G.FarmMastery_G = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.FarmMastery_G then
@@ -2810,12 +2945,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Mastery All Sword", false, "", function(Value)
+local MasterySword = Tabs.Main:AddToggle("MasterySword", {
+    Title = "Auto Mastery All Sword",
+    Description = "",
+    Default = false
+})
+MasterySword:OnChanged(function(Value)
     _G.FarmMastery_S = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -2886,38 +3023,40 @@ spawn(function()
     end
 end)
 
--- MainTab:Seperator("Quest Farm");
-
-
-Client = MainTab:Label("Client");
-
+Tabs.Main:AddSection("Generals Quests / Items")
+local MobKilled = Tabs.Main:AddParagraph({
+    Title = "Cake Princes :",
+    Content = ""
+})
 spawn(function()
     while wait(.2) do
         pcall(function()
             local Killed = string.match(replicated.Remotes.CommF_:InvokeServer("CakePrinceSpawner"), "%d+")
             if Killed then
-                Client:Set("Cake Princes Killed: " .. (500-Killed));
+                MobKilled:SetDesc(" Killed : " .. (500 - Killed))
             end
         end)
     end
 end)
-
-
-Client1 = MainTab:Label("Client");
-
+local CheckingBone = Tabs.Main:AddParagraph({
+    Title = " Bones :",
+    Content = ""
+})
 spawn(function()
     while wait(.2) do
         pcall(function()
-            Client1:Set("Bones : " .. GetM("Bones"));
+            CheckingBone:SetDesc(" Bones : " .. GetM("Bones"))
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Cake Prince", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Cake Prince",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Cake_Prince = Value
 end)
-
 spawn(function()
     while wait() do
         if _G.Auto_Cake_Prince then
@@ -2981,12 +3120,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Bones", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Bones",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoFarm_Bone = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoFarm_Bone then
@@ -3029,19 +3170,22 @@ spawn(function()
         end
     end
 end)
-
-
-MainTab:Toggle("Accept Quests", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Accept Quests",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AcceptQuestC = Value
 end)
-
-
-
-
-MainTab:Toggle("Auto Farm Mirror", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Farm Mirror",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoMiror = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoMiror then
@@ -3059,12 +3203,14 @@ spawn(function()
         end
     end
 end)
-
-
-MainTab:Toggle("Auto HytHallow", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Soul Reaper [Fully]",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoHytHallow = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoHytHallow then
@@ -3095,11 +3241,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Random Bones", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Random Bones",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Random_Bone = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -3112,12 +3261,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Try Luck Gravestone", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Try Luck Gravestone",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.TryLucky = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.TryLucky then
@@ -3130,11 +3281,14 @@ spawn(function()
         end
     end
 end)
-
-MainTab:Toggle("Auto Pray Gravestone", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Pray Gravestone",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Praying = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         if _G.Praying then
@@ -3148,14 +3302,15 @@ spawn(function()
     end
 end)
 
--- MainTab:Seperator("Dough Dungeon");
-
-
-MainTab:Toggle("Auto Unlock Dough dungeon", false, "", function(Value)
+Tabs.Main:AddSection("Unlocked Dungeon")
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Unlock Dough dungeon",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Doughv2 = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         if _G.Doughv2 then
@@ -3218,13 +3373,14 @@ spawn(function()
         end
     end
 end)
-
-
-MainTab:Toggle("Auto Unlock Phoenix dungeon", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Unlock Phoenix dungeon",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoPhoenixF = Value
 end)
-
-
 spawn(function()
     while wait(.1) do
         if _G.AutoPhoenixF then
@@ -3255,13 +3411,15 @@ spawn(function()
     end
 end)
 
--- MainTab:Seperator("Haki color");
-
-MainTab:Toggle("Auto Teleport Barista Cousin", false, "", function(Value)
+Tabs.Main:AddSection("Buso/Aura Colours")
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Teleport Barista Cousin",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Tp_MasterA = Value
 end)
-
-
 spawn(function()
     while wait() do
         if _G.Tp_MasterA then
@@ -3275,18 +3433,21 @@ spawn(function()
         end
     end
 end)
-
-
-MainTab:Button("Buy Buso Colors", function()
-    replicated.Remotes.CommF_:InvokeServer("ColorsDealer", "2")
-end)
-
-
-MainTab:Toggle("Auto Rainbow Colors", false, "", function(Value)
+Tabs.Main:AddButton({
+    Title = "Buy Buso Colors",
+    Description = "",
+    Callback = function()
+        replicated.Remotes.CommF_:InvokeServer("ColorsDealer", "2")
+    end
+})
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Rainbow Colors",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Rainbow_Haki = Value
 end)
-
-
 spawn(function()
     pcall(function()
         while wait(Sec) do
@@ -3386,23 +3547,24 @@ spawn(function()
         end
     end)
 end)
-
-
-MainTab:Toggle("Accept Rainbow Quest Faster", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Accept Rainbow Quest Faster",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.GetQFast = Value
 end)
 
-
-
--- MainTab:Seperator("Ken Farm");
-
-
-
-MainTab:Toggle("Auto Farm Ken", false, "", function(Value)
+Tabs.Main:AddSection("Instinct / Observation")
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Farm Observation",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.obsFarm = Value
 end)
-
-
 spawn(function()
     while wait(.2) do
         pcall(function()
@@ -3485,13 +3647,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Ken V2", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Observation V2",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoKenVTWO = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         if _G.AutoKenVTWO then
@@ -3588,12 +3751,15 @@ spawn(function()
         end
     end
 end)
--- MainTab:Seperator("Race V3");
-
-MainTab:Toggle("Auto Mink V3", false, "", function(Value)
+Tabs.Main:AddSection("Upgrade Races V3")
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Upgrade Mink V3",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Mink = Value
 end)
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -3634,13 +3800,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Human V3", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Upgrade Human V3",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Human = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -3705,13 +3872,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Angel V3", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Upgrade Skypiea V3",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Skypiea = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -3757,13 +3925,14 @@ spawn(function()
         end)
     end
 end)
-
-
-MainTab:Toggle("Auto Fish V3", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Upgrade FishMan V3",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.Auto_Fish = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -3803,13 +3972,15 @@ spawn(function()
     end
 end)
 
-
-
-MainTab:Toggle("Auto Valkyrie", false, "", function(Value)
+Tabs.Main:AddSection("Dark Dragger + Valkyrie")
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Valkyrie",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoRipIngay = Value
 end)
-
-
 spawn(function()
     while wait(Sec) do
         pcall(function()
@@ -3831,12 +4002,14 @@ spawn(function()
         end)
     end
 end)
-
-MainTab:Toggle("Auto Unlocked Puzzle", false, "", function(Value)
+local Q = Tabs.Main:AddToggle("Q", {
+    Title = "Auto Unlocked Puzzle",
+    Description = "",
+    Default = false
+})
+Q:OnChanged(function(Value)
     _G.AutoUnHaki = Value
 end)
-
-
 AuraSkin = function(HakiID)
     local args = {
         [1] = {
